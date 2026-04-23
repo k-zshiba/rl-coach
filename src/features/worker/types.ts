@@ -39,9 +39,12 @@ export interface PlayerStat {
   Name: string;
 }
 
+export type FullReplay = Record<string, unknown>;
+
 export interface ParsedReplay {
   networkErr: string | null;
   replay: Replay;
+  replayFull: FullReplay;
 }
 
 export interface ReplayFile {

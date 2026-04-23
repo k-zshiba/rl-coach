@@ -2,6 +2,7 @@ import { Graph } from "./Graph";
 import { Description } from "./Description";
 import { TeamScores } from "./TeamScores";
 import { DownloadReplayJson } from "./DownloadReplayJson";
+import { CoachInsights } from "./CoachInsights";
 import { ReplayYield } from "../replay/replayStore";
 
 interface ReportProps {
@@ -28,6 +29,7 @@ export const Report = ({ replay }: ReportProps) => {
           {...replay.data.properties}
         />
       ) : null}
+      <CoachInsights replay={replay} />
       {stats !== undefined ? (
         <div className="flex flex-wrap place-content-center gap-10">
           <Graph
