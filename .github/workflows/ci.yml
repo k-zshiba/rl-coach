@@ -24,6 +24,12 @@ jobs:
     - name: Setup Rust toolchain
       uses: dtolnay/rust-toolchain@stable
     - run: rustup target add wasm32-unknown-unknown
+    - name: Install wasm-pack
+      uses: taiki-e/install-action@v2
+      with:
+        tool: wasm-pack
+    - name: Build wasm bindings
+      run: wasm-pack build crate --target web --out-dir pkg
     - name: Npm Install
       run: npm ci
     - name: Compile rust crate tests for wasm
