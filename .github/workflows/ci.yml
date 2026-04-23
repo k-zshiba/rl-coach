@@ -16,14 +16,26 @@ jobs:
         os: [ubuntu-latest, windows-latest]
     steps:
     - uses: actions/checkout@v4
-    - uses: jdx/mise-action@v2
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+    - name: Setup Rust toolchain
+      uses: dtolnay/rust-toolchain@stable
     - run: rustup target add wasm32-unknown-unknown
+    - name: Install wasm-pack
+      uses: taiki-e/install-action@v2
+      with:
+        tool: wasm-pack
+    - name: Build wasm bindings
+      run: wasm-pack build crate --target web --out-dir pkg
     - name: Npm Install
       run: npm ci
-    - name: Test rust crate
-      run: cargo test --target wasm32-unknown-unknown
+    - name: Compile rust crate tests for wasm
+      run: cargo test --target wasm32-unknown-unknown --no-run
     - name: Build app
-      run: mise run build
+      run: npm run build
     - name: Run unit tests
       run: npm run test:unit
     - name: Run playwright tests

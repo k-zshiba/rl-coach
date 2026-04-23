@@ -16,6 +16,9 @@ export class ReplayParser {
 
     return {
       replay: JSON.parse(this.replay.header_json(false)) as Replay,
+      replayFull: JSON.parse(
+        new TextDecoder().decode(this.replay.full_json(false)),
+      ) as Record<string, unknown>,
       networkErr: this.replay.network_err() ?? null,
     };
   }

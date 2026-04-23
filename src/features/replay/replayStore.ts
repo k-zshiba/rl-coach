@@ -1,6 +1,6 @@
 import { ParseMode } from "@/stores/uiStore";
 import { create } from "zustand";
-import { ParsedReplay, ParseInput, Replay } from "../worker";
+import { FullReplay, ParsedReplay, ParseInput, Replay } from "../worker";
 
 class ReplayInput {
   constructor(public readonly input: ParseInput) {}
@@ -43,6 +43,7 @@ export interface ReplayYield extends ParseArg {
   data: Replay;
   networkErr: string | null;
   mode: ParseMode;
+  fullData: FullReplay;
 }
 
 interface ReplayStore {
@@ -62,10 +63,16 @@ const useReplayStore = create<ReplayStore>()((set) => ({
       set(() => ({
         latest: { kind: "error", error, input: new ReplayInput(input) },
       })),
-    parsed: ({ replay, ...rest }, mode, { input }) => {
+    parsed: ({ replay, replayFull, ...rest }, mode, { input }) => {
       set(() => ({
         latest: { kind: "success", input: new ReplayInput(input) },
-        parsed: { data: replay, ...rest, mode, input: new ReplayInput(input) },
+        parsed: {
+          data: replay,
+          fullData: replayFull,
+          ...rest,
+          mode,
+          input: new ReplayInput(input),
+        },
       }));
     },
   },
