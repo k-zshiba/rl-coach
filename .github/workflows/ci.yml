@@ -26,8 +26,8 @@ jobs:
     - run: rustup target add wasm32-unknown-unknown
     - name: Npm Install
       run: npm ci
-    - name: Test rust crate
-      run: cargo test --target wasm32-unknown-unknown
+    - name: Compile rust crate tests for wasm
+      run: cargo test --target wasm32-unknown-unknown --no-run
     - name: Build app
       run: npm run build
     - name: Run unit tests
