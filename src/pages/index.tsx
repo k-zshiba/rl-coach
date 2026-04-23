@@ -14,7 +14,7 @@ const Home: NextPage = () => {
         <div className="grid grid-cols-[1fr_32px] gap-2 md:gap-6">
           <h1 className="text-2xl font-bold">Rocket League Replay Parser</h1>
           <div>
-            <a href="https://github.com/nickbabcock/rl-web">
+            <a href="https://github.com/k-zshiba/rl-coach">
               <GithubIcon alt="Rocket League Replay Parser website Github Repo" />
             </a>
           </div>
